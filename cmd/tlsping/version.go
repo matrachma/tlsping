@@ -4,7 +4,7 @@ import (
 	"os"
 )
 
-//  printVersion prints the version information about this application
+// printVersion prints the version information about this application
 func printVersion(f *os.File) {
 	const template = `
 {{.AppName}} {{.AppVersion}}
@@ -16,10 +16,9 @@ Built on:
 {{.Tab1}}{{.BuildTime}}
 
 Author:
-{{.Tab1}}Fabio Hernandez
-{{.Tab1}}IN2P3/CNRS computing center, Lyon (France)
+{{.Tab1}}Hikmat Rachmatia
 
-Source code and documentation:
+Inspired:
 {{.Tab1}}https://github.com/airnandez/{{.AppName}}
 `
 	render(template, tmplFields, f)

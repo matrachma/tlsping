@@ -11,8 +11,8 @@ import (
 
 // Config is used to configure how to time the TLS connection
 type Config struct {
-	// Dont perform TLS handshake. Only measure the time for
-	//  estasblishing the TCP connection
+	// Don't perform TLS handshake. Only measure the time for
+	//  establishing the TCP connection
 	AvoidTLSHandshake bool
 
 	// Don't verify server certificate. Used relevant if
@@ -30,8 +30,8 @@ type Config struct {
 	Count int
 
 	// Timeout is the maximum amount of time a dial will wait for
-	// a connect to complete.
-	Timeout int
+	// a connection to complete.
+	Timeout float64
 }
 
 // Ping establishes network connections to the specified network addr
@@ -59,7 +59,7 @@ func Ping(addr string, config *Config) (PingResult, error) {
 	target := net.JoinHostPort(ipAddr, port)
 	var f func() error
 	d := &net.Dialer{
-		Timeout: config.Timeout * time.Second,
+		Timeout: time.Duration(config.Timeout * float64(time.Second)),
 	}
 	if config.AvoidTLSHandshake {
 		f = func() error {

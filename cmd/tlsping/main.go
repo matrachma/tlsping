@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/airnandez/tlsping"
+	"github.com/matrachma/tlsping"
 )
 
 func main() {
@@ -18,7 +18,7 @@ func main() {
 	}
 	tcpOnly := fset.Bool("tcponly", false, "")
 	count := fset.Int("c", defaultIterations, "")
-	timeout := fset.Int("t", defaultTimeout, "")
+	timeout := fset.Float64("t", defaultTimeout, "")
 	jsonOutput := fset.Bool("json", false, "")
 	insecure := fset.Bool("insecure", false, "")
 	ca := fset.String("ca", "", "")

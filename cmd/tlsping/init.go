@@ -10,10 +10,10 @@ import (
 )
 
 const (
-	defaultServerAddr string = ""
-	defaultIterations int    = 10
-	defaultTimeout    int    = 5
-	maxCount          int    = 100
+	defaultServerAddr string  = ""
+	defaultIterations int     = 10
+	defaultTimeout    float64 = 1.0
+	maxCount          int     = 100
 )
 
 var (
