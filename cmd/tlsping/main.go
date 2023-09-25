@@ -68,7 +68,9 @@ func main() {
 	result, err := tlsping.Ping(serverAddr, &config)
 	if err != nil {
 		errlog.Printf("error connecting to '%s': %s\n", serverAddr, err)
-		// os.Exit(1)
+		if !*jsonOutput {
+			os.Exit(1)
+		}
 	}
 	s := "TLS"
 	if *tcpOnly {
