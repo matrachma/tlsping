@@ -68,13 +68,13 @@ func main() {
 	result, err := tlsping.Ping(serverAddr, &config)
 	if err != nil {
 		errlog.Printf("error connecting to '%s': %s\n", serverAddr, err)
-		os.Exit(1)
+		// os.Exit(1)
 	}
 	s := "TLS"
 	if *tcpOnly {
 		s = "TCP"
 	}
-	if !*jsonOutput {
+	if !*jsonOutput && err == nil {
 		outlog.Printf("%s connection to %s (%s) (%d connections)\n", s, serverAddr, result.IPAddr, *count)
 		outlog.Printf("min/avg/max/stddev = %s/%s/%s/%s\n", result.MinStr(), result.AvgStr(), result.MaxStr(), result.StdStr())
 		os.Exit(0)
@@ -93,7 +93,7 @@ func main() {
 		Std:        result.Std,
 	}
 	if err != nil {
-		jsonRes.Error = fmt.Sprintf("%s", err)
+		jsonRes.Error = fmt.Sprintf("error connecting to '%s': %s", serverAddr, err)
 	}
 	b, err := json.Marshal(jsonRes)
 	if err != nil {
