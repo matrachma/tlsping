@@ -28,6 +28,10 @@ type Config struct {
 	// Number of times to connect. The time spent by every connection will
 	// be measured and the results will be summarized.
 	Count int
+
+	// Timeout is the maximum amount of time a dial will wait for
+	// a connect to complete.
+	Timeout int
 }
 
 // Ping establishes network connections to the specified network addr
@@ -55,7 +59,7 @@ func Ping(addr string, config *Config) (PingResult, error) {
 	target := net.JoinHostPort(ipAddr, port)
 	var f func() error
 	d := &net.Dialer{
-		Timeout: 5 * time.Second,
+		Timeout: config.Timeout * time.Second,
 	}
 	if config.AvoidTLSHandshake {
 		f = func() error {

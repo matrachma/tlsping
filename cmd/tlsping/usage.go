@@ -18,7 +18,7 @@ const (
 func printUsage(f *os.File, kind usageType) {
 	const template = `
 USAGE:
-{{.Tab1}}{{.AppName}} [-c count] [-tcponly] [-json] [-ca=<file>]
+{{.Tab1}}{{.AppName}} [-c count] [-t timeout] [-tcponly] [-json] [-ca=<file>]
 {{.Tab1}}{{.AppNameFiller}} [-insecure] <server address>
 {{.Tab1}}{{.AppName}} -help
 {{.Tab1}}{{.AppName}} -version
@@ -40,6 +40,10 @@ OPTIONS:
 {{.Tab1}}-c count
 {{.Tab2}}Perform count concurrent measurements.
 {{.Tab2}}Default: {{.DefaultCount}}
+
+{{.Tab1}}-t timeout
+{{.Tab2}}Number of seconds dial TCP connections timeout.
+{{.Tab2}}Default: {{.DefaultTimeout}}
 
 {{.Tab1}}-tcponly
 {{.Tab2}}Establish the TCP connection with the remote server but do not perform
@@ -83,6 +87,7 @@ EXAMPLES:
 		tmplFields["UsageVersion"] = "long"
 	}
 	tmplFields["DefaultCount"] = fmt.Sprintf("%d", defaultIterations)
+	tmplFields["DefaultTimeout"] = fmt.Sprintf("%d", defaultTimeout)
 	render(template, tmplFields, f)
 }
 

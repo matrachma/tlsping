@@ -18,6 +18,7 @@ func main() {
 	}
 	tcpOnly := fset.Bool("tcponly", false, "")
 	count := fset.Int("c", defaultIterations, "")
+	timeout := fset.Int("t", defaultTimeout, "")
 	jsonOutput := fset.Bool("json", false, "")
 	insecure := fset.Bool("insecure", false, "")
 	ca := fset.String("ca", "", "")
@@ -48,6 +49,9 @@ func main() {
 		printUsage(os.Stderr, usageShort)
 		os.Exit(1)
 	}
+	if *timeout <= 0 {
+		*timeout = defaultTimeout
+	}
 	caCerts, err := loadCaCerts(*ca)
 	if err != nil {
 		errlog.Printf("%s\n", err)
@@ -59,6 +63,7 @@ func main() {
 		AvoidTLSHandshake:  *tcpOnly,
 		InsecureSkipVerify: *insecure,
 		RootCAs:            caCerts,
+		Timeout:            *timeout,
 	}
 	result, err := tlsping.Ping(serverAddr, &config)
 	if err != nil {

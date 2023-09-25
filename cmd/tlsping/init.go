@@ -12,6 +12,7 @@ import (
 const (
 	defaultServerAddr string = ""
 	defaultIterations int    = 10
+	defaultTimeout    int    = 5
 	maxCount          int    = 100
 )
 
